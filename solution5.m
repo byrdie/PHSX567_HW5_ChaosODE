@@ -37,12 +37,14 @@ figure(1)
 plot(times,X1, "linewidth", 2)
 hold on
 plot(times,X2, 'k', "linewidth", 2)
-
+xlabel("Time (s)")
+ylabel("Angle (radians)")
+title("Trajectory of homogenous initial conditions and small perturbation")
 % Plot the phase space diagram
 %figure(2)
 %plot(X1, dX1)
 
-d = 30; % resolution of parameter space
+d = 4; % resolution of parameter space
 E_max = 1e6;	% Maximum value of energy in parameter space
 w_max = 30;	% Maximum value of frequency in parameter space
 dE = E_max / d;	% Step size in energy
@@ -60,8 +62,17 @@ for i = 1:d
 	endfor
 endfor
 figure(2)
-imshow(param_space, rainbow())
-imwrite(param_space, rainbow(), "E_vs_W.tif")
+
+%a = [0:dE:E_max]' * ones(1,d);
+%b = ones(d,1) * [0:dw:w_max];
+a = [0.001, E_max];
+b = [0.001, w_max];
+imagesc(param_space);
+colorbar
+title("Std. deviation of trajectories");
+xlabel(sprintf("Frequency (%.02e radians per divsion)", dw))
+ylabel(sprintf("Electric field (%.02e  V/m per divsion)", dE)) 
+%imwrite(param_space, rainbow(), "E_vs_W.tif")
 
 
 
